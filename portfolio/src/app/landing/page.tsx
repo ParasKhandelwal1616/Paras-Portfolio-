@@ -16,68 +16,58 @@ const titles = [
   "Real-Time Systems Developer",
 ];
 
-const TYPING_SPEED = 60;
-const ERASING_SPEED = 35;
-const PAUSE_AFTER_TYPE = 1800;
-const PAUSE_AFTER_ERASE = 400;
-
 export default function Landing() {
-  const [displayedText, setDisplayedText] = useState("");
   const [titleIndex, setTitleIndex] = useState(0);
-  const [isErasing, setIsErasing] = useState(false);
-  const [charIndex, setCharIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [displayedText, setDisplayedText] = useState("");
+  const [phase, setPhase] = useState<"typing" | "pausing" | "erasing" | "waiting">("typing");
 
   useEffect(() => {
-    const currentTitle = titles[titleIndex];
-    if (isPaused) return;
+    const current = titles[titleIndex];
 
-    if (!isErasing && charIndex < currentTitle.length) {
-      const timeout = setTimeout(() => {
-        setDisplayedText(currentTitle.slice(0, charIndex + 1));
-        setCharIndex((c) => c + 1);
-      }, TYPING_SPEED);
-      return () => clearTimeout(timeout);
+    if (phase === "typing") {
+      if (displayedText.length < current.length) {
+        const t = setTimeout(() => {
+          setDisplayedText(current.slice(0, displayedText.length + 1));
+        }, 65);
+        return () => clearTimeout(t);
+      } else {
+        // fully typed — pause before erasing
+        const t = setTimeout(() => setPhase("erasing"), 1800);
+        return () => clearTimeout(t);
+      }
     }
 
-    if (!isErasing && charIndex === currentTitle.length) {
-      setIsPaused(true);
-      const timeout = setTimeout(() => {
-        setIsPaused(false);
-        setIsErasing(true);
-      }, PAUSE_AFTER_TYPE);
-      return () => clearTimeout(timeout);
+    if (phase === "erasing") {
+      if (displayedText.length > 0) {
+        const t = setTimeout(() => {
+          setDisplayedText((prev) => prev.slice(0, -1));
+        }, 35);
+        return () => clearTimeout(t);
+      } else {
+        // fully erased — wait then move to next
+        const t = setTimeout(() => {
+          setTitleIndex((i) => (i + 1) % titles.length);
+          setPhase("typing");
+        }, 400);
+        return () => clearTimeout(t);
+      }
     }
-
-    if (isErasing && charIndex > 0) {
-      const timeout = setTimeout(() => {
-        setDisplayedText(currentTitle.slice(0, charIndex - 1));
-        setCharIndex((c) => c - 1);
-      }, ERASING_SPEED);
-      return () => clearTimeout(timeout);
-    }
-
-    if (isErasing && charIndex === 0) {
-      setIsPaused(true);
-      const timeout = setTimeout(() => {
-        setIsPaused(false);
-        setIsErasing(false);
-        setTitleIndex((i) => (i + 1) % titles.length);
-      }, PAUSE_AFTER_ERASE);
-      return () => clearTimeout(timeout);
-    }
-  }, [charIndex, isErasing, titleIndex, isPaused]);
+  }, [displayedText, phase, titleIndex]);
 
   return (
     <main className="relative flex min-h-screen w-full items-center justify-center bg-[#020617] overflow-hidden text-white">
+      <p className="text-xs absolute top-5 uppercase tracking-[0.3em] text-purple-400 font-mono">
+            &lt; Welcome to my portfolio /&gt;
+          </p>
       {/* 🔥 Purple Glow Background — SMALLER */}
       <div className="absolute inset-0 
         bg-[radial-gradient(circle_at_center,_#8b5cf6_0%,_transparent_40%)] 
         opacity-15 blur-2xl">
       </div>
+      
 
       {/* 🔹 Content */}
-      <div className="relative z-10 flex w-full max-w-10xl items-center justify-between px-20">
+      <div className="relative z-10 flex w-full max-w-8xl items-center justify-between px-20">
 
         {/* LEFT — Name + Code Block */}
         <motion.div
@@ -87,7 +77,7 @@ export default function Landing() {
           className="flex flex-col gap-4 max-w-md"
         >
           <p className="text-xs uppercase tracking-[0.3em] text-purple-400 font-mono">
-            &lt; Welcome to my portfolio /&gt;
+            Hello I&apos;m
           </p>
 
           <h1 className="text-7xl font-black leading-none tracking-tight">
@@ -145,7 +135,6 @@ export default function Landing() {
             className="z-20"
             loading="lazy"
           />
-          {/* Glow behind image — SMALLER */}
           <div className="absolute inset-0 -z-10 
             bg-[radial-gradient(circle,_#8b5cf6,_transparent_60%)] 
             blur-xl opacity-30">
@@ -159,12 +148,11 @@ export default function Landing() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-right flex flex-col items-end gap-4 max-w-sm"
         >
-          {/* Top label */}
           <p className="text-sm uppercase tracking-widest text-purple-400 font-mono">
             Open Source Enthusiast
           </p>
 
-          {/* Typewriter title */}
+          {/* Typewriter */}
           <div className="flex flex-col items-end gap-1">
             <span className="text-xs text-slate-500 font-mono uppercase tracking-widest">
               I am a
@@ -173,7 +161,6 @@ export default function Landing() {
               <span className="bg-gradient-to-r from-purple-400 to-indigo-500 bg-clip-text text-transparent">
                 {displayedText}
               </span>
-              {/* Blinking cursor */}
               <motion.span
                 animate={{ opacity: [1, 0, 1] }}
                 transition={{ repeat: Infinity, duration: 0.8 }}
@@ -189,19 +176,17 @@ export default function Landing() {
             transition={{ delay: 1.2 }}
             className="flex flex-wrap justify-end gap-2"
           >
-            {["Next.js", "TypeScript", "Node.js", "MongoDB", "Docker", "Redis"].map(
-              (tech, i) => (
-                <motion.span
-                  key={tech}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.4 + i * 0.1 }}
-                  className="px-3 py-1 rounded-full border border-purple-700/50 bg-purple-900/20 text-purple-300 text-xs font-mono backdrop-blur-sm"
-                >
-                  {tech}
-                </motion.span>
-              )
-            )}
+            {["Next.js", "TypeScript", "Node.js", "MongoDB", "Docker", "Redis"].map((tech, i) => (
+              <motion.span
+                key={tech}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.4 + i * 0.1 }}
+                className="px-3 py-1 rounded-full border border-purple-700/50 bg-purple-900/20 text-purple-300 text-xs font-mono backdrop-blur-sm"
+              >
+                {tech}
+              </motion.span>
+            ))}
           </motion.div>
 
           {/* CTA Buttons */}
