@@ -1,8 +1,28 @@
-import Image from "next/image";
+"use client"
 
-export default async function Home() {
+import Image from "next/image";
+import Loading from "./loading/page";
+import { useEffect, useState } from "react";
+
+
+
+
+export default  function Home() {
   // Artificial delay to see the loading.tsx in action
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+
+const [isloading ,setIsloading] = useState(true);
+
+useEffect(() => {
+  const timer = setTimeout(() =>{
+    setIsloading(false);
+  },5000);
+  return () => clearTimeout(timer);
+},[]);
+
+if(isloading){
+  return<Loading/>
+}
+
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
