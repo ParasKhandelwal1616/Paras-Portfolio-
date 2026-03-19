@@ -4,6 +4,7 @@ import Image from "next/image";
 import Loading from "./loading/page";
 import { useEffect, useState } from "react";
 import Landing from "./landing/page";
+import About from "./About/page";
 
 
 
@@ -28,6 +29,7 @@ if(isloading){
  return (
     <>
       <Landing />
+      <About/>
     </>
   );
 }

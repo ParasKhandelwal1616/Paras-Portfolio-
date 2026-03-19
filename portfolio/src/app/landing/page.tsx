@@ -1,7 +1,17 @@
 'use client'
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+
+const SplineScene = dynamic(() => import('../../components/Spline'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="w-8 h-8 rounded-full border-2 border-purple-500 border-t-transparent animate-spin" />
+    </div>
+  ),
+});
 
 const titles = [
   "Full Stack Developer",
@@ -54,37 +64,40 @@ export default function Landing() {
 
   return (
     <main className="relative flex min-h-screen w-full items-center justify-center bg-[#000000] overflow-hidden text-white">
-<p className="text-xs absolute top-5 uppercase tracking-[0.3em] text-purple-400 font-mono z-30">
-  &lt; Welcome to my portfolio /&gt;
-</p>
 
-<a 
-  href="https://drive.google.com/file/d/11LhUBdsIoAU_OSChcArDIMsIWgHk-1BL/view?usp=drive_link"  
-  target="_blank" 
-  rel="noopener noreferrer"
-  className="absolute top-16 z-30"
->
-  <button className="px-5 py-2 rounded-lg border border-purple-700/60 hover:border-purple-500 hover:bg-purple-900/30 transition-colors text-sm font-semibold cursor-pointer">
-    Resume
-  </button>
-</a>
+      {/* Top bar */}
+      <p className="text-xs absolute top-5 left-1/2 -translate-x-1/2 uppercase tracking-[0.3em] text-purple-400 font-mono z-30 whitespace-nowrap">
+        &lt; Welcome to my portfolio /&gt;
+      </p>
+      <a
+        href="https://drive.google.com/file/d/11LhUBdsIoAU_OSChcArDIMsIWgHk-1BL/view?usp=drive_link"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute top-14 left-1/2 -translate-x-1/2 z-30"
+      >
+        <button className="px-5 py-2 rounded-lg border border-purple-700/60 hover:border-purple-500 hover:bg-purple-900/30 transition-colors text-sm font-semibold cursor-pointer">
+          Resume
+        </button>
+      </a>
+
+      {/* Purple Glow Background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#8b5cf6_0%,_transparent_10%)] opacity-20 blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_right_top,_#8b5cf6_0%,_transparent_40%)] opacity-10 blur-3xl pointer-events-none" />
       
 
-      {/* 🔥 Purple Glow Background */}
-      <div className="absolute inset-0 
-        bg-[radial-gradient(circle_at_center,_#8b5cf6_0%,_transparent_1%)] 
-        opacity-15 blur-2xl">
-      </div>
+      {/* ── DESKTOP (md+) ── */}
+      {/* Grid: large left | fixed robot box | large right */}
+      <div
+        className="relative z-10 hidden md:grid w-full h-screen px-20"
+        style={{ gridTemplateColumns: '1fr 500px 1fr' }}
+      >
 
-      {/* ── DESKTOP (md+): your original layout, completely untouched ── */}
-      <div className="relative z-10 hidden md:flex w-full max-w-8xl items-center justify-between px-20">
-
-        {/* LEFT */}
+        {/* LEFT — same size as before */}
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col gap-4 max-w-md"
+          className="flex flex-col justify-center gap-4 max-w-md"
         >
           <p className="text-xs uppercase tracking-[0.3em] text-purple-400 font-mono">
             Hello I&apos;m
@@ -99,7 +112,7 @@ export default function Landing() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="mt-2 rounded-xl border border-purple-900/60 bg-[#0d1117]/80 backdrop-blur-sm p-4 font-mono text-sm shadow-lg shadow-purple-900/20"
+            className="rounded-xl border border-purple-900/60 bg-[#0d1117]/80 backdrop-blur-sm p-4 font-mono text-sm shadow-lg shadow-purple-900/20"
           >
             <div className="flex items-center gap-2 mb-3">
               <span className="w-3 h-3 rounded-full bg-red-500/80" />
@@ -133,28 +146,24 @@ export default function Landing() {
           </motion.div>
         </motion.div>
 
-        {/* CENTER IMAGE — ORIGINAL UNTOUCHED */}
-        <div className="relative w-[900] h-[500]">
-          <Image
-            src="/my_photo.png"
-            alt="My Photo"
-            width={1100}
-            height={1100}
-            className="z-20"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 -z-10 
-            bg-[radial-gradient(circle,_#8b5cf6,_transparent_60%)] 
-            blur-xl opacity-30">
+        {/* CENTER — exactly 500×500px robot box, vertically centered */}
+        <div className="flex items-center justify-center">
+          <div
+            className="relative"
+            style={{ width: '500px', height: '500px' }}
+          >
+            {/* Purple glow behind robot */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle,_#8b5cf6,_transparent_60%)] blur-2xl opacity-30 pointer-events-none -z-10" />
+            <SplineScene />
           </div>
         </div>
 
-        {/* RIGHT */}
+        {/* RIGHT — same size as before */}
         <motion.div
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-right flex flex-col items-end gap-4 max-w-sm"
+          className="text-right flex flex-col items-end justify-center gap-4 max-w-sm ml-auto"
         >
           <p className="text-sm uppercase tracking-widest text-purple-400 font-mono">
             Open Source Enthusiast
@@ -198,27 +207,35 @@ export default function Landing() {
             transition={{ delay: 1.8 }}
             className="flex gap-3 mt-1"
           >
-            <a href="https://github.com/ParasKhandelwal1616" target="_blank" rel="noopener noreferrer"
-              className="px-5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 transition-colors text-sm font-semibold shadow-lg shadow-purple-900/40">
+            <a
+              href="https://github.com/ParasKhandelwal1616"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 transition-colors text-sm font-semibold shadow-lg shadow-purple-900/40"
+            >
               GitHub
             </a>
-            <a href="https://www.linkedin.com/in/paras-khandelwal/" target="_blank" rel="noopener noreferrer"
-              className="px-5 py-2 rounded-lg border border-purple-700/60 hover:border-purple-500 hover:bg-purple-900/30 transition-colors text-sm font-semibold">
+            <a
+              href="https://www.linkedin.com/in/paras-khandelwal/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2 rounded-lg border border-purple-700/60 hover:border-purple-500 hover:bg-purple-900/30 transition-colors text-sm font-semibold"
+            >
               LinkedIn
             </a>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* ── MOBILE (<md): stacked layout ── */}
-      <div className="relative z-10 flex md:hidden w-full flex-col items-center gap-6 px-6 pt-16 pb-10">
+      {/* ── MOBILE (<md) ── */}
+      <div className="relative z-10 flex md:hidden w-full flex-col items-center gap-6 px-6 pt-24 pb-10">
 
-        {/* Photo — circle, no border */}
+        {/* Photo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
-          className="relative w-44 h-44 rounded-full overflow-hidden flex-shrink-0"
+          className="relative w-36 h-36 rounded-full overflow-hidden flex-shrink-0"
         >
           <Image
             src="/my_photo.png"
@@ -227,7 +244,6 @@ export default function Landing() {
             className="object-cover object-top"
             loading="lazy"
           />
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle,_#8b5cf6,_transparent_60%)] blur-xl opacity-30" />
         </motion.div>
 
         {/* Name */}
@@ -256,14 +272,14 @@ export default function Landing() {
           className="text-center flex flex-col items-center gap-1"
         >
           <span className="text-xs text-slate-500 font-mono uppercase tracking-widest">I am a</span>
-          <h2 className="text-2xl font-bold min-h-[2.5rem] flex items-center justify-center">
+          <h2 className="text-xl font-bold min-h-[2.5rem] flex items-center justify-center">
             <span className="bg-gradient-to-r from-purple-400 to-indigo-500 bg-clip-text text-transparent">
               {displayedText}
             </span>
             <motion.span
               animate={{ opacity: [1, 0, 1] }}
               transition={{ repeat: Infinity, duration: 0.8 }}
-              className="ml-1 inline-block w-[2px] h-[2rem] bg-purple-400 rounded-full align-middle"
+              className="ml-1 inline-block w-[2px] h-[1.5rem] bg-purple-400 rounded-full align-middle"
             />
           </h2>
         </motion.div>
@@ -310,12 +326,20 @@ export default function Landing() {
           transition={{ delay: 1.1 }}
           className="flex gap-3"
         >
-          <a href="https://github.com/ParasKhandelwal1616" target="_blank" rel="noopener noreferrer"
-            className="px-5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 transition-colors text-sm font-semibold shadow-lg shadow-purple-900/40">
+          <a
+            href="https://github.com/ParasKhandelwal1616"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 transition-colors text-sm font-semibold shadow-lg shadow-purple-900/40"
+          >
             GitHub
           </a>
-          <a href="https://www.linkedin.com/in/paras-khandelwal/" target="_blank" rel="noopener noreferrer"
-            className="px-5 py-2 rounded-lg border border-purple-700/60 hover:border-purple-500 hover:bg-purple-900/30 transition-colors text-sm font-semibold">
+          <a
+            href="https://www.linkedin.com/in/paras-khandelwal/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2 rounded-lg border border-purple-700/60 hover:border-purple-500 hover:bg-purple-900/30 transition-colors text-sm font-semibold"
+          >
             LinkedIn
           </a>
         </motion.div>
