@@ -53,15 +53,26 @@ export default function Landing() {
   }, [displayedText, phase, titleIndex]);
 
   return (
-    <main className="relative flex min-h-screen w-full items-center justify-center bg-[#020617] overflow-hidden text-white">
+    <main className="relative flex min-h-screen w-full items-center justify-center bg-[#000000] overflow-hidden text-white">
+<p className="text-xs absolute top-5 uppercase tracking-[0.3em] text-purple-400 font-mono z-30">
+  &lt; Welcome to my portfolio /&gt;
+</p>
 
-      <p className="text-xs absolute top-5 uppercase tracking-[0.3em] text-purple-400 font-mono z-20">
-        &lt; Welcome to my portfolio /&gt;
-      </p>
+<a 
+  href="https://drive.google.com/file/d/11LhUBdsIoAU_OSChcArDIMsIWgHk-1BL/view?usp=drive_link"  
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="absolute top-16 z-30"
+>
+  <button className="px-5 py-2 rounded-lg border border-purple-700/60 hover:border-purple-500 hover:bg-purple-900/30 transition-colors text-sm font-semibold cursor-pointer">
+    Resume
+  </button>
+</a>
+      
 
       {/* 🔥 Purple Glow Background */}
       <div className="absolute inset-0 
-        bg-[radial-gradient(circle_at_center,_#8b5cf6_0%,_transparent_40%)] 
+        bg-[radial-gradient(circle_at_center,_#8b5cf6_0%,_transparent_1%)] 
         opacity-15 blur-2xl">
       </div>
 

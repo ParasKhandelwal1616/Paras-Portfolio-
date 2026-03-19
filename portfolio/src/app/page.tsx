@@ -8,6 +8,7 @@ import Landing from "./landing/page";
 
 
 
+
 export default  function Home() {
   // Artificial delay to see the loading.tsx in action
 
@@ -24,8 +25,9 @@ if(isloading){
   return<Loading/>
 }
 
-
-  return (
-    <Landing/>
+ return (
+    <>
+      <Landing />
+    </>
   );
 }
