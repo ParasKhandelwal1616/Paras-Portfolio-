@@ -20,7 +20,7 @@ function easeInOut(x: number) {
   return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
 }
 
-export function WaveLoader({ size = 300, duration = 5000, progress }: WaveLoaderProps) {
+export function WaveLoader({ size = 300, duration = 2000, progress }: WaveLoaderProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fillRef   = useRef(0);
   const tRef      = useRef(0);
@@ -151,7 +151,7 @@ export default function Loading() {
         fontFamily: "'Syne Mono', 'Courier New', monospace",
       }}
     >
-      <WaveLoader size={300} duration={5000} />
+      <WaveLoader size={300} duration={2000} />
       <span
         style={{
           fontSize: 11, letterSpacing: "0.28em",
