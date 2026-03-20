@@ -158,15 +158,33 @@ const OriginalPhysicsScene = ({ inView }: { inView: boolean }) => {
 // --- FOREGROUND CARDS ---
 
 const CarouselCard = ({ tech, index, total, rotation, sectionInView }: { tech: typeof TECH_ASSETS[0], index: number, total: number, rotation: any, sectionInView: boolean }) => {
+  const [radius, setRadius] = useState(680);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setRadius(width * 0.85); // Dynamic radius for mobile
+        setIsMobile(true);
+      } else {
+        setRadius(680);
+        setIsMobile(false);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const angle = (index / total) * Math.PI * 2;
-  const radius = 680; 
 
   const currentAngle = useTransform(rotation, (r: number) => angle + (r * Math.PI) / 180);
   const z = useTransform(currentAngle, (a) => Math.cos(a) * radius);
   const x = useTransform(currentAngle, (a) => Math.sin(a) * radius);
   
   const opacity = useTransform(z, [-radius, -radius * 0.6, 0, radius], [0, 0.4, 0.8, 1]);
-  const scale = useTransform(z, [-radius, radius], [0.4, 1.1]);
+  const scale = useTransform(z, [-radius, radius], [isMobile ? 0.3 : 0.4, isMobile ? 0.8 : 1.1]);
   const zIndex = useTransform(z, [-radius, radius], [0, 100]);
   const blur = useTransform(z, [-radius, -radius * 0.5, 0], [10, 5, 0]);
 
@@ -189,19 +207,19 @@ const CarouselCard = ({ tech, index, total, rotation, sectionInView }: { tech: t
         filter: useTransform(blur, (b) => `blur(${b}px)`),
         pointerEvents: 'auto' // Ensure cards are still clickable
       }}
-      className="w-40 h-56 md:w-48 md:h-68 cursor-pointer group"
+      className="w-32 h-44 md:w-48 md:h-68 cursor-pointer group"
     >
-      <div className="relative w-full h-full rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent backdrop-blur-xl flex flex-col items-center justify-center p-6 transition-all duration-500 group-hover:border-purple-500/50 group-hover:bg-white/20 group-hover:shadow-[0_0_50px_rgba(139,92,246,0.25)]">
-        <div className="absolute inset-0 rounded-3xl bg-[radial-gradient(circle_at_50%_0%,_#ffffff15_0%,_transparent_60%)]" />
-        <div className="relative w-20 h-20 md:w-24 md:h-24 mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+      <div className="relative w-full h-full rounded-2xl md:rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent backdrop-blur-xl flex flex-col items-center justify-center p-4 md:p-6 transition-all duration-500 group-hover:border-purple-500/50 group-hover:bg-white/20 group-hover:shadow-[0_0_50px_rgba(139,92,246,0.25)]">
+        <div className="absolute inset-0 rounded-2xl md:rounded-3xl bg-[radial-gradient(circle_at_50%_0%,_#ffffff15_0%,_transparent_60%)]" />
+        <div className="relative w-12 h-12 md:w-24 md:h-24 mb-4 md:mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
           <Image src={tech.url} alt={tech.name} fill className="object-contain filter drop-shadow-[0_0_20px_rgba(139,92,246,0.4)]" />
         </div>
-        <h4 className="text-white font-mono text-xs md:text-sm font-black tracking-[0.3em] uppercase opacity-50 group-hover:opacity-100 transition-opacity">
+        <h4 className="text-white font-mono text-[10px] md:text-sm font-black tracking-[0.2em] md:tracking-[0.3em] uppercase opacity-50 group-hover:opacity-100 transition-opacity">
           {tech.name}
         </h4>
         <div className="absolute top-[105%] left-0 w-full h-1/3 opacity-20 scale-y-[-1] pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)', WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)' }}>
-          <div className="w-full h-full rounded-b-3xl border-t border-white/5 bg-white/5 flex flex-col items-center justify-start p-2">
-             <div className="relative w-12 h-12"><Image src={tech.url} alt={tech.name} fill className="object-contain" /></div>
+          <div className="w-full h-full rounded-b-2xl md:rounded-b-3xl border-t border-white/5 bg-white/5 flex flex-col items-center justify-start p-2">
+             <div className="relative w-8 h-8 md:w-12 md:h-12"><Image src={tech.url} alt={tech.name} fill className="object-contain" /></div>
           </div>
         </div>
       </div>

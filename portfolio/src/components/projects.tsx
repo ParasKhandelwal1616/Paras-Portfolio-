@@ -58,6 +58,7 @@ const PROJECTS = [
 
 const ProjectCard = ({ project, index }: { project: typeof PROJECTS[0], index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [isTap, setIsTap] = useState(false);
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -77,6 +78,7 @@ const ProjectCard = ({ project, index }: { project: typeof PROJECTS[0], index: n
   const handleMouseLeave = () => {
     mouseX.set(0);
     mouseY.set(0);
+    setIsTap(false);
   };
 
   return (
@@ -84,6 +86,7 @@ const ProjectCard = ({ project, index }: { project: typeof PROJECTS[0], index: n
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onClick={() => setIsTap(!isTap)}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -91,7 +94,7 @@ const ProjectCard = ({ project, index }: { project: typeof PROJECTS[0], index: n
       style={{
         perspective: '1000px',
       }}
-      className="group relative w-full h-[480px] rounded-3xl cursor-pointer"
+      className="group relative w-full h-[380px] md:h-[480px] rounded-3xl cursor-pointer"
     >
       <motion.div
         style={{
@@ -99,7 +102,7 @@ const ProjectCard = ({ project, index }: { project: typeof PROJECTS[0], index: n
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="relative w-full h-full rounded-3xl overflow-hidden border border-white/10 bg-black shadow-2xl"
+        className={`relative w-full h-full rounded-3xl overflow-hidden border border-white/10 bg-black shadow-2xl ${isTap ? 'border-purple-500/50' : ''}`}
       >
         {/* Background Image - Zoom corrected */}
         <div className="absolute inset-0 z-0">
@@ -107,53 +110,53 @@ const ProjectCard = ({ project, index }: { project: typeof PROJECTS[0], index: n
             src={project.image} 
             alt={project.title} 
             fill 
-            className="object-cover transition-opacity duration-700 opacity-90 group-hover:opacity-40"
+            className={`object-cover transition-opacity duration-700 ${isTap ? 'opacity-40' : 'opacity-90'} group-hover:opacity-40`}
           />
         </div>
 
         {/* Static Bottom Gradient for readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-2 opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-2 ${isTap ? 'opacity-100' : 'opacity-60'} group-hover:opacity-100 transition-opacity duration-500`} />
 
         {/* Content Layer */}
-        <div className="relative z-10 h-full p-8 flex flex-col justify-end" style={{ transform: 'translateZ(40px)' }}>
+        <div className="relative z-10 h-full p-6 md:p-8 flex flex-col justify-end" style={{ transform: 'translateZ(40px)' }}>
           {/* Tech Tags */}
-          <div className="flex flex-wrap gap-2 mb-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
+          <div className={`flex flex-wrap gap-2 mb-3 md:mb-4 ${isTap ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100`}>
             {project.tech.map((t) => (
-              <span key={t} className="px-3 py-1 text-[10px] font-bold tracking-widest uppercase bg-purple-900/80 border border-purple-400/50 text-white rounded-full backdrop-blur-md">
+              <span key={t} className="px-2 md:px-3 py-1 text-[8px] md:text-[10px] font-bold tracking-widest uppercase bg-purple-900/80 border border-purple-400/50 text-white rounded-full backdrop-blur-md">
                 {t}
               </span>
             ))}
           </div>
           
           {/* Title */}
-          <h3 className="text-3xl font-black text-white mb-2 tracking-tight transition-all duration-500 translate-y-16 group-hover:translate-y-0">
+          <h3 className={`text-xl md:text-3xl font-black text-white mb-2 tracking-tight transition-all duration-500 ${isTap ? 'translate-y-0' : 'translate-y-12 md:translate-y-16'} group-hover:translate-y-0`}>
             {project.title}
           </h3>
           
           {/* Description & Buttons */}
-          <div className="opacity-0 group-hover:opacity-100 translate-y-10 group-hover:translate-y-0 transition-all duration-500 delay-200">
-            <p className="text-gray-200 text-sm font-medium leading-relaxed mb-6 line-clamp-3">
+          <div className={`${isTap ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-200`}>
+            <p className="text-gray-200 text-xs md:text-sm font-medium leading-relaxed mb-4 md:mb-6 line-clamp-2 md:line-clamp-3">
               {project.description}
             </p>
 
-            <div className="flex gap-4">
+            <div className="flex gap-3 md:gap-4">
               <a 
                 href={project.github} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white text-sm font-semibold hover:bg-white/20 transition-all"
+                className="flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-xl bg-white/10 border border-white/20 text-white text-[10px] md:text-sm font-semibold hover:bg-white/20 transition-all"
               >
-                <Github size={18} />
+                <Github size={16} className="md:w-[18px] md:h-[18px]" />
                 Code
               </a>
               <a 
                 href={project.link} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600 text-white text-sm font-semibold hover:bg-purple-500 transition-all shadow-lg shadow-purple-900/20"
+                className="flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-xl bg-purple-600 text-white text-[10px] md:text-sm font-semibold hover:bg-purple-500 transition-all shadow-lg shadow-purple-900/20"
               >
-                <ExternalLink size={18} />
-                Live Demo
+                <ExternalLink size={16} className="md:w-[18px] md:h-[18px]" />
+                Demo
               </a>
             </div>
           </div>
