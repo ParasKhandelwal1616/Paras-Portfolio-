@@ -3,6 +3,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 const SplineScene = dynamic(() => import('../../components/Spline'), {
   ssr: false,
@@ -27,11 +28,15 @@ const titles = [
 ];
 
 export default function Landing() {
+  const { ref: landingRef, inView: landingInView } = useInView({ threshold: 0.05 });
+  const { ref: splineRef, inView: splineInView } = useInView({ threshold: 0.1 });
+  
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [phase, setPhase] = useState<"typing" | "erasing">("typing");
 
   useEffect(() => {
+    if (!landingInView) return;
     const current = titles[titleIndex];
 
     if (phase === "typing") {
@@ -60,10 +65,10 @@ export default function Landing() {
         return () => clearTimeout(t);
       }
     }
-  }, [displayedText, phase, titleIndex]);
+  }, [displayedText, phase, titleIndex, landingInView]);
 
   return (
-    <main className="relative flex min-h-screen w-full items-center justify-center bg-[#000000] overflow-hidden text-white">
+    <main ref={landingRef} className="relative flex min-h-screen w-full items-center justify-center bg-[#000000] overflow-hidden text-white">
 
       {/* Top bar */}
       <p className="text-xs absolute top-5 left-1/2 -translate-x-1/2 uppercase tracking-[0.3em] text-purple-400 font-mono z-30 whitespace-nowrap">
@@ -147,14 +152,14 @@ export default function Landing() {
         </motion.div>
 
         {/* CENTER — exactly 500×500px robot box, vertically centered */}
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center" ref={splineRef}>
           <div
             className="relative"
             style={{ width: '500px', height: '500px' }}
           >
             {/* Purple glow behind robot */}
             <div className="absolute inset-0 bg-[radial-gradient(circle,_#8b5cf6,_transparent_60%)] blur-2xl opacity-30 pointer-events-none -z-10" />
-            <SplineScene />
+            {splineInView && <SplineScene />}
           </div>
         </div>
 
@@ -242,7 +247,7 @@ export default function Landing() {
             alt="My Photo"
             fill
             className="object-cover object-top"
-            loading="lazy"
+            priority
           />
         </motion.div>
 

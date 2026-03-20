@@ -32,14 +32,20 @@ export default function About() {
       
 
         <motion.h1 
-        initial={{ width: 0 }}
-              animate={{ width: "100px" }}
-              transition={{ delay: 0.8, duration: 1, ease: "easeInOut" }}
-              variants={fadeInUp}
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.8 }}
               className="flex absolute top-6 mx-auto text-4xl font-bold tracking-tighter"
             >
               About
-              <p className="w-40 h-1 top-9 absolute bg-gradient-to-r from-white to-transparent rounded-3xl"></p>
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: "160px" }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.8, duration: 1, ease: "easeInOut" }}
+                className="h-1 top-9 absolute bg-gradient-to-r from-white to-transparent rounded-3xl"
+              ></motion.div>
             </motion.h1>
         
       <div className="flex flex-col md:flex-row items-center gap-20 px-10 z-10">
@@ -70,7 +76,8 @@ export default function About() {
         <motion.div 
           variants={container}
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
           className="max-w-xl"
         >
           <div className="flex items-center gap-4 mb-8">
@@ -78,7 +85,8 @@ export default function About() {
             {/* The White Line you asked for */}
             <motion.div 
               initial={{ width: 0 }}
-              animate={{ width: "100px" }}
+              whileInView={{ width: "100px" }}
+              viewport={{ once: true }}
               transition={{ delay: 0.8, duration: 1, ease: "easeInOut" }}
               className="h-[1px] bg-gradient-to-r from-white to-transparent"
             />

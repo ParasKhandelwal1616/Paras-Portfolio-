@@ -3,7 +3,7 @@ import Spline from '@splinetool/react-spline';
 
 export default function SplineScene() {
   return (
-    <div style={{ width: '100%', height: '100%', minHeight: '600px', position: 'relative' }}>
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <Spline
         scene="https://prod.spline.design/AMky1TygRJ1mN1Ez/scene.splinecode"
         style={{
