@@ -11,48 +11,48 @@ const PROJECTS = [
     description: "A real-time collaborative cloud code editor engineered with low-latency WebSocket bridges for seamless multi-user typing and synchronized execution environments.",
     image: "/NexusIDE.png", 
     tech: ["React", "Node.js", "Socket.io", "Express", "MongoDB"],
-    github: "https://github.com/ParasKhandelwal1616", 
-    link: "https://example.com" 
+    github: "https://github.com/ParasKhandelwal1616/Colabrative-IDE", 
+    link: "nexus-ide-v1.vercel.app" 
   },
   {
     title: "Sentinel EWS",
     description: "A production-grade Disaster Early Warning System featuring real-time WebSocket broadcasting, an offline-first IndexedDB vault for zero-signal environments, and multimodal AI for autonomous threat verification.",
     image: "/sentenalews.png", 
     tech: ["Next.js", "Node.js", "IndexedDB", "WebSockets", "Gemini AI"],
-    github: "https://github.com/ParasKhandelwal1616", 
-    link: "https://your-sentinel-live-link.vercel.app" 
+    github: "https://github.com/ParasKhandelwal1616/sentinel-ews", 
+    link: "sentinel-ews.vercel.app" 
   },
   {
     title: "RestForge API Workspace",
     description: "A real-time collaborative API testing and documentation platform. Engineered to allow multiple developers to concurrently build, test, and debug REST endpoints with synchronized request states.",
     image: "/api testing.png", 
     tech: ["React", "Node.js", "Socket.io", "Express", "Tailwind CSS"],
-    github: "https://github.com/ParasKhandelwal1616", 
-    link: "https://example.com" 
+    github: "https://github.com/ParasKhandelwal1616/API-Collabe-testing", 
+    link: "api-collabe-testing-972m.vercel.app/" 
   },
   {
     title: "MITS Freshers Portal",
     description: "An end-to-end event management and registration platform engineered for the incoming freshman class. Designed to handle concurrent user registrations, featuring dynamic ticketing and a live event dashboard.",
     image: "/Mits fressers.png", 
     tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind"],
-    github: "https://github.com/ParasKhandelwal1616", 
-    link: "https://example.com" 
+    github: "https://github.com/ParasKhandelwal1616/MITS-Fresher", 
+    link: "mits-fresher.vercel.app" 
   },
   {
     title: "College Tech Platform",
     description: "A collaborative team development project built for the university club. Engineered with strict version control, component-driven architecture, and deployed to a production edge network.",
     image: "/club.png", 
     tech: ["Next.js", "Tailwind CSS", "GitHub Actions", "Vercel"],
-    github: "https://github.com/ParasKhandelwal1616", 
-    link: "https://example.com" 
+    github: "https://github.com/ParasKhandelwal1616/Heritage-Tourism-Web-Portal", 
+    link: "https://heritage-tourism-web-portal-tv5t.vercel.app/" 
   },
   {
     title: "Interactive 3D Portfolio",
     description: "A highly interactive, performance-optimized developer portfolio utilizing advanced frontend rendering, glassmorphism UI, and modern typography to showcase full-stack architecture.",
     image: "/portfalio.png", 
     tech: ["Next.js", "Tailwind CSS", "Framer Motion", "Space Grotesk"],
-    github: "https://github.com/ParasKhandelwal1616/my-portfolio", 
-    link: "https://your-portfolio-link.vercel.app" 
+    github: "https://github.com/ParasKhandelwal1616/Paras-Portfolio-", 
+    link: "paras-portfolio-eight.vercel.app" 
   }
 ];
 
