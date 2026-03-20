@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Landing from "./landing/page";
 import About from "./About/page";
 import Technical from "./Technical/page";
+import Projects from "./Projects/page";
 
 
 
@@ -30,7 +31,8 @@ if(isloading){
     <>
       <Landing />
       <About/>
-     <Technical/>
+      <Technical/>
+      <Projects/>
     </>
   );
 }
