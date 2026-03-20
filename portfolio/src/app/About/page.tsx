@@ -25,30 +25,30 @@ export default function About() {
   };
 
   return (
-    <div className={`${spaceGrotesk.variable} relative flex min-h-screen w-full items-center justify-center bg-[#000000] overflow-hidden text-white font-sans`}>
+    <div className={`${spaceGrotesk.variable} relative flex min-h-screen w-full items-center justify-center bg-[#000000] overflow-hidden text-white font-sans pt-32 md:pt-0`}>
       {/* Background Glows */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,_#8b5cf6_10%,_transparent_10%)] opacity-15 blur-3xl" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_#8b5cf6_10%,_transparent_10%)] opacity-15 blur-3xl" />
       
-
-        <motion.h1 
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="flex absolute top-6 mx-auto text-4xl font-bold tracking-tighter"
-            >
-              About
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: "160px" }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.8, duration: 1, ease: "easeInOut" }}
-                className="h-1 top-9 absolute bg-gradient-to-r from-white to-transparent rounded-3xl"
-              ></motion.div>
-            </motion.h1>
+      {/* Header Section (Matching TechStack style) */}
+      <div className="absolute top-10 md:top-20 left-0 w-full px-10 z-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          viewport={{ once: true }} 
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-6xl md:text-9xl font-black text-white/5 uppercase tracking-tighter absolute -top-6 md:-top-16 left-10 select-none whitespace-nowrap">
+            About Me
+          </h2>
+          <h3 className="text-4xl md:text-6xl font-bold text-white relative z-10">
+            Who I <span className="text-purple-500">Am</span>
+          </h3>
+          <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-transparent mt-4 rounded-full" />
+        </motion.div>
+      </div>
         
-      <div className="flex flex-col md:flex-row items-center gap-20 px-10 z-10">
+      <div className="flex flex-col md:flex-row items-center gap-20 px-10 z-10 mt-20 md:mt-0">
 
       
         {/* Left Section: Image with Hover Effect */}
