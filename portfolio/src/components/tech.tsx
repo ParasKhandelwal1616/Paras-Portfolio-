@@ -239,7 +239,7 @@ const TechStack = () => {
               <spotLight position={[20, 20, 25]} intensity={1.5} angle={0.2} penumbra={1} castShadow />
               <pointLight position={[-10, -10, -10]} intensity={1} color="#8b5cf6" />
               
-              <EffectComposer disableNormalPass>
+              <EffectComposer>
                 <N8AO aoRadius={1} intensity={2} />
                 <Bloom mipmapBlur intensity={0.5} luminanceThreshold={1} />
                 <Noise opacity={0.02} />

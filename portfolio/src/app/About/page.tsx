@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Space_Grotesk } from "next/font/google";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -11,12 +11,12 @@ const spaceGrotesk = Space_Grotesk({
 
 export default function About() {
   // Animation variants for staggered text
-  const fadeInUp = {
+  const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
