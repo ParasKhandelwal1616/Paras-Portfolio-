@@ -1,10 +1,10 @@
 "use client"
 
-import Image from "next/image";
 import Loading from "./loading/page";
 import { useEffect, useState } from "react";
 import Landing from "./landing/page";
 import About from "./About/page";
+import Technical from "./Technical/page";
 
 
 
@@ -30,6 +30,7 @@ if(isloading){
     <>
       <Landing />
       <About/>
+     <Technical/>
     </>
   );
 }

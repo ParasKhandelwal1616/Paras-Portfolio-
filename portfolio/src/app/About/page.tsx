@@ -30,8 +30,21 @@ export default function About() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,_#8b5cf6_10%,_transparent_10%)] opacity-15 blur-3xl" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_#8b5cf6_10%,_transparent_10%)] opacity-15 blur-3xl" />
       
-      <div className="flex flex-col md:flex-row items-center gap-20 px-10 z-10">
+
+        <motion.h1 
+        initial={{ width: 0 }}
+              animate={{ width: "100px" }}
+              transition={{ delay: 0.8, duration: 1, ease: "easeInOut" }}
+              variants={fadeInUp}
+              className="flex absolute top-6 mx-auto text-4xl font-bold tracking-tighter"
+            >
+              About
+              <p className="w-40 h-1 top-9 absolute bg-gradient-to-r from-white to-transparent rounded-3xl"></p>
+            </motion.h1>
         
+      <div className="flex flex-col md:flex-row items-center gap-20 px-10 z-10">
+
+      
         {/* Left Section: Image with Hover Effect */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
@@ -61,12 +74,7 @@ export default function About() {
           className="max-w-xl"
         >
           <div className="flex items-center gap-4 mb-8">
-            <motion.h1 
-              variants={fadeInUp}
-              className="text-4xl font-bold tracking-tighter"
-            >
-              ABOUT
-            </motion.h1>
+            
             {/* The White Line you asked for */}
             <motion.div 
               initial={{ width: 0 }}
@@ -82,7 +90,7 @@ export default function About() {
             </p>
             
             <p>
-              I don't just build web apps; I architect solutions for complex problems—from 
+              I don&apos;t just build web apps; I architect solutions for complex problems—from 
               <span className="text-[#8b5cf6]"> offline-first data caching</span> in zero-signal environments to 
               <span className="text-[#8b5cf6]"> low-latency WebSocket bridges</span>.
             </p>
