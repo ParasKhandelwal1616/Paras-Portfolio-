@@ -4,9 +4,9 @@ import Loading from "./loading/page";
 import { useEffect, useState } from "react";
 import Landing from "./landing/page";
 import About from "./About/page";
-import Experience from "./Experience/page";
 import Technical from "./Technical/page";
-import Projects from "./Projects/page";
+import ProjectsPage from "./Projects/page";
+import Experience from "@/components/experience";
 
 
 
@@ -33,8 +33,8 @@ if(isloading){
       <Landing />
       <About/>
       <Experience/>
-      <Technical/>
-      <Projects/>
+     <Technical/>
+     <ProjectsPage/>
     </>
   );
 }
