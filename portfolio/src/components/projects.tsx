@@ -12,7 +12,7 @@ const PROJECTS = [
     image: "/NexusIDE.png", 
     tech: ["React", "Node.js", "Socket.io", "Express", "MongoDB"],
     github: "https://github.com/ParasKhandelwal1616/Colabrative-IDE", 
-    link: "nexus-ide-v1.vercel.app" 
+    link: "https://nexus-ide-v1.vercel.app" 
   },
   {
     title: "Sentinel EWS",
@@ -20,7 +20,7 @@ const PROJECTS = [
     image: "/sentenalews.png", 
     tech: ["Next.js", "Node.js", "IndexedDB", "WebSockets", "Gemini AI"],
     github: "https://github.com/ParasKhandelwal1616/sentinel-ews", 
-    link: "sentinel-ews.vercel.app" 
+    link: "https://sentinel-ews.vercel.app" 
   },
   {
     title: "RestForge API Workspace",
@@ -28,7 +28,7 @@ const PROJECTS = [
     image: "/api testing.png", 
     tech: ["React", "Node.js", "Socket.io", "Express", "Tailwind CSS"],
     github: "https://github.com/ParasKhandelwal1616/API-Collabe-testing", 
-    link: "api-collabe-testing-972m.vercel.app/" 
+    link: "https://api-collabe-testing-972m.vercel.app/" 
   },
   {
     title: "MITS Freshers Portal",
@@ -36,7 +36,7 @@ const PROJECTS = [
     image: "/Mits fressers.png", 
     tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind"],
     github: "https://github.com/ParasKhandelwal1616/MITS-Fresher", 
-    link: "mits-fresher.vercel.app" 
+    link: "https://mits-fresher.vercel.app" 
   },
   {
     title: "College Tech Platform",
@@ -52,7 +52,7 @@ const PROJECTS = [
     image: "/portfalio.png", 
     tech: ["Next.js", "Tailwind CSS", "Framer Motion", "Space Grotesk"],
     github: "https://github.com/ParasKhandelwal1616/Paras-Portfolio-", 
-    link: "paras-portfolio-eight.vercel.app" 
+    link: "https://paras-portfolio-eight.vercel.app" 
   }
 ];
 
