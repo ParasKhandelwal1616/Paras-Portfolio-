@@ -46,6 +46,8 @@ const PROJECTS = [
     github: "https://github.com/ParasKhandelwal1616/Heritage-Tourism-Web-Portal", 
     link: "https://heritage-tourism-web-portal-tv5t.vercel.app/" 
   },
+
+  
   {
     title: "Interactive 3D Portfolio",
     description: "A highly interactive, performance-optimized developer portfolio utilizing advanced frontend rendering, glassmorphism UI, and modern typography to showcase full-stack architecture.",
